@@ -1,6 +1,23 @@
-# Getting Started with Create React App
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Projecto Final React - CoderHouse 
+### `Primera versión del proyecto final del curso.`
+Sitio e-commerce para la marca Herschel, desarrollado en React JS.
+
+## Autor 
+### `Franco Fernandez`
+
+## Librerías 
+### `Font Awesome`
+Utilizada para íconos en la web. 
+
+### `Google Fonts`
+Todas las tipografías del sitio pertenecen a Google Fonts
+
+## Estilos 
+### `SASS`
+Los estilos del sitio fueron llevados a cabo utilizando SASS. 
+
 
 ## Available Scripts
 
