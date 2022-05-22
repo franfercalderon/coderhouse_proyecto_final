@@ -2,22 +2,26 @@ import { NavLink } from "react-router-dom"
 
 export default function Nav () {
 
-    <div className='nav-bar-container'>
-        <NavLink to='/'>
-            <div className='nav-logo-container'>
-                <img src='/images/logo'className="nav-logo"/>
-            </div>
-        </NavLink>
-        <div className='nav-category-container'>
-            <NavLink to='/category/1'>MOCHILAS</NavLink>
-            <NavLink to='/category/2'>RIÑONERAS</NavLink>
-            <NavLink to='/category/3'>BILLETERAS</NavLink>
-        </div>
-        <NavLink to='/'>
-            <div className='nav-cart-container'>
-                <img src='/images/cart'className="nav-cart"/>
-            </div>
-        </NavLink>
-    </div>
+    return(
 
+        <div className='nav-bar-container'>
+            <NavLink to='/'>
+                <div className='nav-logo-container'>
+                    <img src='/images/logo.png' className="nav-logo" alt='Herschel Logo'/>
+                </div>
+            </NavLink>
+            <div className='nav-category-container'>
+                <NavLink to='/category/0' className='nav-link'>TODO</NavLink>
+                <NavLink to='/category/2' className='nav-link'>MOCHILAS</NavLink>
+                <NavLink to='/category/3' className='nav-link'>RIÑONERAS</NavLink>
+                <NavLink to='/category/1' className='nav-link'>BILLETERAS</NavLink>
+            </div>
+            <NavLink to='/'>
+                <div className='nav-cart-container'>
+                    <img src='/images/icons/basket.png'className="nav-cart" alt='cart icon'/>
+                </div>
+            </NavLink>
+        </div>
+    )
+    
 }
