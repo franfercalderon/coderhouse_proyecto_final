@@ -8,12 +8,6 @@ export default function ItemsListContainer ({categoryId} ) {
     const [array, setArray] = useState([])
     const [title, setTitle] = useState('')
     
-    // useEffect(()=>{
-    //     setTimeout(() => {
-    //         setArray(products)
-    //       }, 1);
-    // },[])
-
 
     useEffect(()=>{
         
@@ -27,7 +21,6 @@ export default function ItemsListContainer ({categoryId} ) {
         if(categoryId > 0){
             const categoryArray = products.filter(item => item.categoryId === +categoryId)
             setArray(categoryArray)
-            console.log(categoryArray)
         }
         else{
             setTimeout(() => {
