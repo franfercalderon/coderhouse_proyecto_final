@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom"
+import CartWidget from "../CartWidget/CartWidget"
 
 export default function Nav () {
 
@@ -16,10 +17,11 @@ export default function Nav () {
                 <NavLink to='/category/3' className='nav-link'>RIÑONERAS</NavLink>
                 <NavLink to='/category/1' className='nav-link'>BILLETERAS</NavLink>
             </div>
-            <NavLink to='/'>
-                <div className='nav-cart-container'>
+            <NavLink to='/cart'>
+                <CartWidget/>
+                {/* <div className='nav-cart-container'>
                     <img src='/images/icons/basket.png'className="nav-cart" alt='cart icon'/>
-                </div>
+                </div> */}
             </NavLink>
         </div>
     )

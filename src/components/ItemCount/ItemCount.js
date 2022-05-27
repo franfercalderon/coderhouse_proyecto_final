@@ -1,5 +1,4 @@
 import { useState } from "react"
-// import AddCartButton from "../AddCartButton/AddCartButton"
 
 export default function ItemCount ({stock, initial, onAdd}) {
 
@@ -17,7 +16,6 @@ export default function ItemCount ({stock, initial, onAdd}) {
         if(qty < stock){
             setQty(qty+1)
         }
-
     }
 
     return(

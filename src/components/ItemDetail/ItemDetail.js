@@ -1,5 +1,5 @@
 // import AddCartButton from "../AddCartButton/AddCartButton"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { CartContext } from "../../context/CartContext/CartContext"
 import ItemCount from "../ItemCount/ItemCount"
 
@@ -9,14 +9,13 @@ export default function ItemDetail ({product}) {
     // //Initial state for Item selected Quantity
     const initial = 0
 
-    const[quantity, setQuantity] = useState(0)
+    //Gets function from CartContext
+    const {addToCart} = useContext(CartContext)
 
     const onAdd = (qty) => {
 
-        setQuantity(qty)
-        // console.log(qty)
-        const {adToCart} = useContext(CartContext)
-
+        //Calls fn from CartContext:
+        addToCart(qty, product)
     }
 
 

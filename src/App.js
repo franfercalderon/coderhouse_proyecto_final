@@ -2,7 +2,7 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 //Import Context
-import CustomProvider from './context/CartContext/CartContext'
+import {CartProvider} from './context/CartContext/CartContext'
 
 
 //Imports views
@@ -16,14 +16,14 @@ function App() {
   return (
 
     <BrowserRouter>
-      <CustomProvider>
+      <CartProvider>
         <Routes>
           <Route exact path='/' element={<Home/>} />
           <Route exact path='/category/:categoryId' element={<Category/>} />
           <Route exact path='/product/:productId' element={<Product/>} />
           <Route exact path='/cart' element={<Cart/>}/>
         </Routes>
-      </CustomProvider>
+      </CartProvider>
     </BrowserRouter>
 
   );
