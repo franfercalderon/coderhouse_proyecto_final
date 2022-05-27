@@ -32,7 +32,12 @@ const CartProvider = ({children}) => {
     }
 
    
-    const removeFromCart = () =>{
+    const removeFromCart = (product) =>{
+
+        const newCart = cart.filter((prod)=>
+            prod.id !== product.id
+        )
+        setCart(newCart)
 
     }
 

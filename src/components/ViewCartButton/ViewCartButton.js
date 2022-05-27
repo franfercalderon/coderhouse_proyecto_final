@@ -6,8 +6,5 @@ export default function ViewCartButton () {
         <>
             <NavLink to='/cart' className='view-cart-btn'>Ir al Carrito</NavLink>
         </>
-
-
-        // <input type='button' value='Agregar al Carrito'></input>
     )
 }
