@@ -2,17 +2,25 @@ import { products } from "../../data/products"
 import { useEffect, useState } from "react";
 import ItemList from "../ItemList/ItemList";
 import {categories} from "../../data/categories"
+import Loader from "../Loader/Loader";
 
 export default function ItemsListContainer ({categoryId} ) {
     
     const [array, setArray] = useState([])
     const [title, setTitle] = useState('')
+    const [isLoading, setIsLoading] = useState(true)
     
 
     useEffect(()=>{
+
+        setTimeout(()=>{
+            setIsLoading(false)
+            console.log('loading')
+        }, 1200)
         
         //If receives a category Id, finds category name to display title.
         if(categoryId){
+
             const cat = categories.find(cat => cat.id === +categoryId)
             setTitle(cat.name)
         }
@@ -22,23 +30,28 @@ export default function ItemsListContainer ({categoryId} ) {
             const categoryArray = products.filter(item => item.categoryId === +categoryId)
             setArray(categoryArray)
         }
+
         else{
-            setTimeout(() => {
-                setArray(products)
-            }, 1);
+
+        //if no category, shows all products (home page)
+            setArray(products)
         }
-    }, [categoryId])
+
+    }, [categoryId, isLoading])
+
 
     
+    return  isLoading ? (
 
-    
-    return(
+        <Loader/>
 
+    ):(
         <div className='item-list-container'>
             <div className='item-list-container-title'>
                 <h1>{title}</h1>
             </div>
             <ItemList products={array}/>
         </div>
+
     )
 }

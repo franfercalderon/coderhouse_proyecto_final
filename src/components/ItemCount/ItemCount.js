@@ -1,6 +1,7 @@
 import { useState } from "react"
+import { NavLink } from "react-router-dom"
 
-export default function ItemCount ({stock, initial, onAdd}) {
+export default function ItemCount ({stock, initial, onAdd, added}) {
 
      //Initial state for Item selected Quantity
      const [qty, setQty] = useState(initial)
@@ -27,7 +28,15 @@ export default function ItemCount ({stock, initial, onAdd}) {
                 </div>
                 <input type='button' value='+' className='item-count-btn' onClick={handleAdd}></input>
             </div>
-            {qty > 0 && <input type='button' onClick={()=>onAdd(qty)} value='Agregar al carrito' className='add-cart-btn'></input>}
+            {
+                !added ?
+                 <input type='button' onClick={()=>onAdd(qty)} value='Agregar al carrito' className='add-cart-btn'></input> 
+                :
+                <NavLink to='/cart'>
+                    <input type='button' value='Terminar compra' className='go-cart-btn'></input>
+                </NavLink>
+                
+            }
         </>
     )
 

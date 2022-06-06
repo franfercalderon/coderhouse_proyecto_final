@@ -9,7 +9,7 @@ const CartProvider = ({children}) => {
 
     //Declares cart, empty at first.
     const [cart, setCart] = useState([])
-
+    
     const addToCart = (qty, product)=>{
         
         //Check if product is in cart
@@ -34,6 +34,7 @@ const CartProvider = ({children}) => {
    
     const removeFromCart = (product) =>{
 
+        //returns new cart without products with selected id
         const newCart = cart.filter((prod)=>
             prod.id !== product.id
         )
@@ -53,10 +54,29 @@ const CartProvider = ({children}) => {
         return cart.find(item => item.id === id)
     }
 
+    const cartQty = () =>{
+
+        //Returns total amount of items in cart
+        return cart.reduce((prev, cur) => prev + cur.quantity, 0)
+
+    }
+
+    const totalPrice = () =>{
+
+        //Returns total cart price reducing array's price property * quantity
+        return cart.reduce((prev, cur) => prev + (cur.price * cur.quantity), 0)
+
+    }
+
+
+
     return(
         <Provider value={{
             cart,
             addToCart,
+            removeFromCart, 
+            cartQty,
+            totalPrice
         }}>
             {children}
         </Provider>

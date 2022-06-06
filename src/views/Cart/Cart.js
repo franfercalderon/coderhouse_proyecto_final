@@ -1,11 +1,12 @@
 import Footer from "../../components/Footer/Footer"
 import Nav from "../../components/Nav/Nav"
+import CartDetail from "../../components/CartDetail/CartDetail"
 
-export default function Cart () {
+export default function CartView () {
     return(
         <>
             <Nav/>
-            {/* CART */}
+            <CartDetail/>
             <Footer/>
         </>
 
