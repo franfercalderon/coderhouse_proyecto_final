@@ -1,9 +1,6 @@
 import { NavLink } from 'react-router-dom'
-// import AddCartButton from '../AddCartButton/AddCartButton'
 
 export default function Item ({product}) {
-
- 
 
     return(
         <>
@@ -12,8 +9,6 @@ export default function Item ({product}) {
                     <img src={product.picture} alt={product.title}/>
                 </div>
                 <h2>{product.title}</h2>
-                {/* <AddCartButton/> */}
-                {/* <input type='button' value='Agregar al Carrito'></input> */}
             </NavLink>
         </>
 

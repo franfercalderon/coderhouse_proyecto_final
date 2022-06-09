@@ -1,6 +1,7 @@
 import ItemDetail from "../ItemDetail/ItemDetail"
 import { products } from "../../data/products"
 import { useEffect, useState } from "react"
+import { getFirestore, getDoc, doc} from 'firebase/firestore'
 
 export default function ItemDetailContainer ({productId}) {
 
@@ -8,9 +9,19 @@ export default function ItemDetailContainer ({productId}) {
 
     useEffect(()=>{
         
-        //Finds the product matching productId
-        const item =products.find(product => product.id === +productId)
-        setProduct(item)
+      
+        //Calls Firestore
+        const db = getFirestore()
+        
+        const itemRef = doc(db, 'products', productId)
+        getDoc(itemRef)
+            .then(snapshot =>{
+                const item = {
+                    id: snapshot.id,
+                    ...snapshot.data()
+                }
+                setProduct(item)
+            })
 
     },[productId])
 
