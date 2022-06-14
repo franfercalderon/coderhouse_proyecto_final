@@ -6,26 +6,23 @@ import CartItem from "../CartItem/CartItem"
 export default function Cart () {
 
     //Gets function from CartContext
-    const {cart, totalPrice } = useContext(CartContext)
+    const {cart, totalPrice, emptyCart } = useContext(CartContext)
 
     return(
         <div className='cart-main-container'>
-
             {
                 //If there are no products on Cart, shows message and button to go shopping products
-    
                 cart.length === 0 &&
                 <>
                     <div className='empty-cart-container'>
                         <h2>Oops! Aún no has agregado productos a tu carrito.</h2>
-                        <NavLink to='/category/0' className='add-cart-btn'>Ver productos</NavLink>
+                        <NavLink to='/' className='add-cart-btn'>Ver productos</NavLink>
                     </div>
                 </>
             }
 
             {
                 //If Cart is not empty
-
                 cart.length > 0 &&
                 <>
                     <div className='cart-info-container'>
@@ -33,8 +30,7 @@ export default function Cart () {
                         <div className='cart-items'>
                             <h2>Tus productos</h2>
                             {
-                                //Hacer Cart.map
-                            
+                                //Maps cart and returns an item for each product (no matter the quantity)
                                     cart.map((item, i) =>(
                                         <CartItem item={item} key={i}/>
                                     ))
@@ -55,6 +51,10 @@ export default function Cart () {
                             <div className='cart-price-detail final-price'>
                                 <p>Total compra:</p>  
                                 <p>${totalPrice()}</p>    
+                            </div>
+                            <div className='cart-details-btn-container'>
+                                <input type='button' value='Vaciar carrito' className='cart-details-btn empty'onClick={emptyCart}/>
+                                <NavLink to='/checkout' className='cart-details-btn buy'>Comprar</NavLink>
                             </div>
                         </div>
                     </div>

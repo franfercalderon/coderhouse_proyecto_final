@@ -27,7 +27,6 @@
 
 .cart-info-container h2 
     font-size: 22px 
-    // margin-bottom: 20px
 
 
 .cart-info-main
@@ -50,10 +49,6 @@
     padding: 8px
     transition: box-shadow 0.22s ease-in
 
-.cart-item-container:hover
-    border: 1px solid #d6d6d6
-    box-shadow: 0px 0px 15px -2px #919191de
-
 .cart-item-img-container
     height: 100%
 
@@ -64,22 +59,24 @@
     z-index: -1
 
 .delete-from-cart-btn
-    height: 70%
-    width: 12%
+    height: 60%
+    width: 11%
     border: none
     background-color: $brick
     color: white
-    font-size: 23px
-    opacity: 0.8
-    border-radius: 10%
+    font-size: 20px
+    opacity: 0.75
+    border-radius: 50%
     cursor: pointer
     transition: font-size 0.12s ease
 
 .delete-from-cart-btn:hover
     opacity: 1
-    font-size: 27px
+    font-size: 24px
 
 .cart-details
+    display: flex
+    flex-direction: column
     padding: 5px 20px
     width: 35%
     text-align: center
@@ -93,6 +90,44 @@
     margin-top: 40px
     border-top: 1px solid #d6d6d6
     padding-top: 20px
+
+.cart-details-btn-container
+    width: 100%
+    display: flex
+    justify-content: space-between
+    margin-top: 18%
+
+.cart-details-btn
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-top: 20px
+    width: 45%
+    cursor: pointer
+    height: 35px
+    font-family: $mulish
+    background-color: $blue1
+    color: #fff
+    border: none
+    font-weight: 600
+    font-size: 0.8rem
+
+.cart-details-btn.empty
+    background-color: white
+    color: $blue2
+    border: 1px solid $blue2
+
+.cart-details-btn.empty:hover
+    color: $blue1
+    border: 1px solid $blue1
+
+.cart-details-btn.buy
+    background-color: $blue2
+    color: white
+
+.cart-details-btn.buy:hover
+    background-color: $brick
+
 
 
     

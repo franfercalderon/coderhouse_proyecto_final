@@ -13,15 +13,6 @@ export default function Home () {
             <ItemListContainer />
             <Footer/>
         </>
-
-        // <h1>HEY</h1>
-        // <>
-
-        //     {/* <Nav/> */}
-        //     {/* <MainTitle/>
-        //     <ItemListContainer/>
-        //     <Footer/> */}
-        // </>
     )
 }
 

@@ -76,7 +76,8 @@ const CartProvider = ({children}) => {
             addToCart,
             removeFromCart, 
             cartQty,
-            totalPrice
+            totalPrice,
+            emptyCart
         }}>
             {children}
         </Provider>
