@@ -2,6 +2,7 @@ import { useContext } from "react"
 import { CartContext } from "../../context/CartContext/CartContext"
 import { NavLink } from "react-router-dom"
 import CartItem from "../CartItem/CartItem"
+import GoHomeBtn from '../GoHomeBtn/GoHomeBtn'
 
 export default function Cart () {
 
@@ -16,7 +17,7 @@ export default function Cart () {
                 <>
                     <div className='empty-cart-container'>
                         <h2>Oops! Aún no has agregado productos a tu carrito.</h2>
-                        <NavLink to='/' className='add-cart-btn'>Ver productos</NavLink>
+                        <GoHomeBtn title='Ir a comprar!'/>
                     </div>
                 </>
             }

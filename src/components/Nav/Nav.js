@@ -12,7 +12,6 @@ export default function Nav () {
                 </div>
             </NavLink>
             <div className='nav-category-container'>
-                {/* <NavLink to='/category/0' className='nav-link'>TODO</NavLink> */}
                 <NavLink to='/category/backpacks' className='nav-link'>MOCHILAS</NavLink>
                 <NavLink to='/category/hipbags' className='nav-link'>RIÑONERAS</NavLink>
                 <NavLink to='/category/wallets' className='nav-link'>BILLETERAS</NavLink>

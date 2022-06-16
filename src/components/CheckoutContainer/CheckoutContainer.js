@@ -1,9 +1,10 @@
-import { addDoc, collection, getFirestore } from "firebase/firestore"
+import { addDoc, collection, getFirestore, runTransaction, doc } from "firebase/firestore"
 import { useState } from "react"
 import { useContext } from "react"
 import { CartContext } from "../../context/CartContext/CartContext"
 import Loader from "../Loader/Loader"
-import { NavLink } from "react-router-dom"
+import GoHomeBtn from "../GoHomeBtn/GoHomeBtn"
+
 
 
 
@@ -51,6 +52,9 @@ export default function CheckoutContainer (){
                     id: id,
                     ...order
                 })
+
+                //Updates actual stock in Firestore
+                updateProductStock()
             })
             .finally(() => {
 
@@ -59,6 +63,38 @@ export default function CheckoutContainer (){
                 setIsLoading(false)
                 emptyCart()
             })
+    }
+
+    const updateProductStock = async () =>{
+
+        const db = getFirestore()
+
+        //Maps cart and
+        cart.forEach( async (item) =>{
+
+            //References each item using its id
+            const itemRef = doc(db, 'products', item.id)
+            
+            await runTransaction(db, async (transaction) =>{
+
+                //Gets transaction doc
+                const transDoc = await transaction.get(itemRef)
+
+                
+                if (!transDoc.exists()){
+
+                    //Logs error if no doc is found
+                    console.error('Document was not found')
+                }
+                else{
+
+                    //If there's a doc matching the id, creates new stock and updates item's transaction
+                    const newStock = transDoc.data().stock - item.quantity
+                    transaction.update(itemRef, {stock: newStock})
+                }
+
+            })
+        })
     }
 
     
@@ -118,8 +154,7 @@ export default function CheckoutContainer (){
                                 <p>Domicilio de entrega: <span>{actualOrder.buyer.address}</span> / <span>{actualOrder.buyer.apt}, </span><span>{actualOrder.buyer.city} <span>({actualOrder.buyer.zipcode}) </span> </span></p>
                                 <p>Total compra: <span>$ {actualOrder.total}</span></p>
                             </div>
-                            <NavLink to='/' className='add-cart-btn checkout'>Volver al Home</NavLink>
-
+                            <GoHomeBtn title='Volver al Home'/>
                         </div>
                     </>
                 }

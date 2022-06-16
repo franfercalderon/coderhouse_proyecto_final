@@ -3,10 +3,15 @@ import Item from '../Item/Item'
 
 export default function ItemList ({products}) {
 
+
+    //States
     const [array, setArray] = useState([])
 
     useEffect(()=>{
+
+        //Updates array of products each time "products" changes
         setArray(products)
+
     },[products])
 
     return(
