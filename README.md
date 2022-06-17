@@ -21,7 +21,9 @@ npm install
 
 ## Correr el proyecto
 Una vez instaladas las dependencias del paso anterior, para iniciar y correr el proyecto, deberá ejecutar el siguiente comando:
-### `npm start`
+```bash
+npm start
+```
 
 ## Librerías 
 ### `Font Awesome`
