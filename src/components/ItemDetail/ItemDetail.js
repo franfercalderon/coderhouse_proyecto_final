@@ -4,6 +4,7 @@ import ItemCount from "../ItemCount/ItemCount"
 
 export default function ItemDetail ({product}) {
 
+    
     // //Initial state for Item selected Quantity
     const initial = 1
 

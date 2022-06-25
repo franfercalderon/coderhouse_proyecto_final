@@ -1,5 +1,5 @@
 import { addDoc, collection, getFirestore, runTransaction, doc } from "firebase/firestore"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useContext } from "react"
 import { CartContext } from "../../context/CartContext/CartContext"
 import Loader from "../Loader/Loader"
@@ -18,9 +18,13 @@ export default function CheckoutContainer (){
     const [actualOrder, setActualOrder] = useState({})
     const [orderComplete, setOrderComplete] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [validEmail, setValidEmail] = useState(false)
+    const [emails, setEmails] = useState([])
 
     //Functions
+
     const handleChange = (e) =>{
+
         //Gets values from form elements and sets data
         const {name, value} = e.target
         setData({...data, [name]: value})
@@ -33,11 +37,18 @@ export default function CheckoutContainer (){
 
         //Prevents default submit behaviour
         e.preventDefault()
+
+        //Creates date string in UTC
+        const timeElapsed = Date.now();
+        const today = new Date(timeElapsed)
+        const UTCdate = today.toUTCString()
         
         //Object order gathering: data from checkout form, cart from cartContext and totalPrice from cartContext
         const order = {
             buyer: data,
             items: cart,
+            status: 'placed',
+            date: UTCdate,
             total: totalPrice()
         }
 
@@ -97,38 +108,54 @@ export default function CheckoutContainer (){
         })
     }
 
-    
+    const getEmails = (e) => {
 
+        //Gets emails from inputs
+        setEmails({
+            ...emails,
+            [e.target.name] : e.target.value
+        })
+
+    }
+
+    useEffect(()=>{
+        
+        //This executes whenever emails state changes 
+
+        if(emails.email1 && emails.email2){
+
+            //If there's something on email inputs, sets setValidEmail to true
+            if(emails.email1 === emails.email2){
+                setValidEmail(true)
+            }
+        }
+    },[emails])
+    
     return(
 
         <> 
         {
             //Shows loader if neccesary
-
             isLoading &&
             <Loader/>
         }
         {
 
             !isLoading &&
-
             <div className='checkout-main-container'>   
                 {   
                     //If orderId is empty, shows form.
                     !orderComplete &&
-                    // !actualOrder &&
                     <>
                         <div className='checkout-form-container'>
                             <h2>Checkout</h2>
                             <form className='checkout-form' onSubmit={handleSumbit}>
+                                <h3>Datos de contacto</h3>
                                 <div className='checkout-group-container'>
-                                    <input placeholder='Nombre' name='name'type='text' className='checkout-text-input' onChange={handleChange}/>
-                                    <input placeholder='Apellido' name='lastname' type='text' className='checkout-text-input'onChange={handleChange}/>
-                                </div>
-                                <div className='checkout-group-container'>
+                                    <input placeholder='Nombre y Apellido' name='name'type='text' className='checkout-text-input' onChange={handleChange}/>
                                     <input placeholder='Teléfono' name='phone' type='text' className='checkout-text-input'onChange={handleChange}/>
-                                    <input placeholder='email' name='email' type='text' className='checkout-text-input'onChange={handleChange}/>
                                 </div>
+                                <h3>Datos para tu envío</h3>
                                 <div className='checkout-group-container'>
                                     <input placeholder='Domicilio' name='address' type='text' className='checkout-text-input'onChange={handleChange}/>
                                     <input placeholder='Piso / Dpto' name='apt' type='text' className='checkout-text-input small-input'onChange={handleChange}/>
@@ -137,7 +164,16 @@ export default function CheckoutContainer (){
                                     <input placeholder='Ciudad' name='city' type='text' className='checkout-text-input'onChange={handleChange}/>
                                     <input placeholder='Código Postal' name='zipcode' type='text' className='checkout-text-input small-input'onChange={handleChange}/>
                                 </div>
-                                <input type='submit' className='checkout-btn' value='Comprar'/>
+                                <h3>Por último, verifica tu correo</h3>
+                                <div className='checkout-group-container'>
+                                    <input placeholder='email' name='email1' type='text' className='checkout-text-input'onChange={(e)=>{handleChange(e); getEmails(e)}}/>
+                                    <input placeholder='Verifica tu email' name='email2' type='text' className='checkout-text-input'onChange={(e)=>{handleChange(e); getEmails(e)}}/>
+                                </div>
+                                {
+                                    //Shows Sumbit button only once emails match
+                                    validEmail &&
+                                    <input type='submit' className='checkout-btn' value='Comprar'/>
+                                }
                             </form>
 
                         </div>
@@ -151,6 +187,7 @@ export default function CheckoutContainer (){
                             <h2>¡Felicitaciones! Tu compra ha sido realizada.</h2>
                             <div className='checkout-success-container'>
                                 <p>Orden: <span>{actualOrder.id}</span></p>
+                                <p>Tu correo electrónico: <span>{actualOrder.buyer.email1}</span></p>
                                 <p>Domicilio de entrega: <span>{actualOrder.buyer.address}</span> / <span>{actualOrder.buyer.apt}, </span><span>{actualOrder.buyer.city} <span>({actualOrder.buyer.zipcode}) </span> </span></p>
                                 <p>Total compra: <span>$ {actualOrder.total}</span></p>
                             </div>

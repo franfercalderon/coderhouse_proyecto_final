@@ -12,7 +12,7 @@ Puede accederse al deploy del proyecto mediante el siguiente link:
 ### `https://coderhouse-proyecto-final.vercel.app`
 
 ## GIF Proceso de compra:
-![gif proceso de compra](https://media.giphy.com/media/aHWdfJeG8hgYtbi62L/giphy.gif)
+![gif proceso de compra](https://media.giphy.com/media/3CHT0XkvH8wt7NfaVQ/giphy.gif)
 
 ## Instalación
 Para instalar el proyecto, debe utilizarse npm ejecutando lo siguiente:

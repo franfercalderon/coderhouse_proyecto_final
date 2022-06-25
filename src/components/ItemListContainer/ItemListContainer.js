@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import ItemList from "../ItemList/ItemList";
 import Loader from "../Loader/Loader";
 import { getFirestore, collection, getDocs, query, where} from 'firebase/firestore'
+import NotFound from "../NotFound/NotFound";
 
 export default function ItemsListContainer ({categoryId} ) {
     
     const [array, setArray] = useState([])
     const [title, setTitle] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const [success, setSuccess] = useState(false)
 
     useEffect(()=>{
 
@@ -27,7 +29,11 @@ export default function ItemsListContainer ({categoryId} ) {
             getDocs(qProductsyRef)
                 .then( snapshot => {
                     if(snapshot.size === 0){
-                        console.log('No results')
+
+                        //Sets state to show 'NotFound' page
+                        setIsLoading(false)
+                        setSuccess(false)
+    
                     }
                     else{
                         //Creates array 'data' from info received
@@ -37,8 +43,10 @@ export default function ItemsListContainer ({categoryId} ) {
                                 ...doc.data()
                             })
                         )
-                        //Sets state of array using fetched data
+                        //Sets state of array using fetched data and success to true
                         setArray(data)
+                        setSuccess(true)
+
                     }
 
                     //Gets selected category from category collection 
@@ -46,9 +54,14 @@ export default function ItemsListContainer ({categoryId} ) {
                     getDocs(qCategoryRef)
                         .then(snapshot=>{
                             if(snapshot.size===0){
-                                console.log('Category not found')
+
+                                //Sets state to show 'NotFound' page
+                                setIsLoading(false)
+                                setSuccess(false)
                             }
                             else{
+
+                                //If a collection was found
                                 const data = snapshot.docs.map(
                                     doc =>({
                                         ...doc.data()
@@ -70,7 +83,10 @@ export default function ItemsListContainer ({categoryId} ) {
             getDocs(productsRef)
                 .then( snapshot => {
                     if(snapshot.size === 0 ){
-                        console.log('No results')
+                        
+                       //Sets state to show 'NotFound' page
+                        setIsLoading(false)
+                        setSuccess(false)
                     }
                     else{
                         const data = snapshot.docs.map(
@@ -79,34 +95,48 @@ export default function ItemsListContainer ({categoryId} ) {
                                 ...doc.data()
                             })
                         )
+
+                        //Sets array with info and success to true
                         setArray(data)
+                        setSuccess(true)
                     }
                 })
                 .finally(()=>{
                     setIsLoading(false)
                 })
-          
-
         }
-
-
-
     },[categoryId])
     
 
-    
-    return  isLoading ? (
+    return(
+        <>
+            {
+                //Shows loader if neccesary
+                isLoading &&
+                <Loader/>
+            }
+            {
+                !isLoading &&
+                <>
+                    {
+                        //If a category has been found (checks it through 'success' state)
+                        success &&
+                            <div className='item-list-container'>
+                                <div className='item-list-container-title'>
+                                    <h1>{title.toUpperCase()}</h1>
+                                </div>
+                                <ItemList products={array}/>
+                            </div>
+                    }
+                    {
+                        //If there is no category, shows NotFound component with proper message
+                        !success &&
 
-        //Shows spinner if it's still loading
-        <Loader/>
+                        <NotFound title='Oops! No encontramos esta categoría.' btn='Ir al Home'/>
 
-    ):(
-        <div className='item-list-container'>
-            <div className='item-list-container-title'>
-                <h1>{title.toUpperCase()}</h1>
-            </div>
-            <ItemList products={array}/>
-        </div>
-
+                    }
+                </>
+            }
+        </>
     )
 }
